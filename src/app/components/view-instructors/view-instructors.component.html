@@ -1,0 +1,21 @@
+<button class="btn btn-primary" routerLink="/manage-instructors">Add Instructor</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let instructor of instructors" [class.table-secondary]="instructor.isDeleted">
+      <td>{{instructor.firstName}} {{instructor.lastName}}</td>
+      <td>{{instructor.email}}</td>
+      <td>({{instructor.phoneNumber | slice: 0:3}}) {{instructor.phoneNumber | slice: 4:7}}-{{instructor.phoneNumber | slice: 8:12}}</td>
+      <td>
+        <button class="btn btn-warning" [routerLink]="['/manage-instructors', instructor.instructorId]" *ngIf="!instructor.isDeleted">Edit</button>
+        <button class="btn btn-danger" (click)="deleteInstructor(instructor.instructorId)" *ngIf="!instructor.isDeleted">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
